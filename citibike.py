@@ -11,6 +11,7 @@ import json
 import math
 import urllib
 import sys
+import os
 
 try:
     # For Python 3.0 and later
@@ -29,7 +30,7 @@ from location import location
 # from datetime import timedelta
 
 # API Key is set through ini file
-GOOGLE_API_KEY = None
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 
 def get_jsonparsed_data(url):
