@@ -94,10 +94,29 @@ d3.json("/working/encoded-topo2.json", function(error, nyc) {
 
          
          var patha = svg.selectAll("line")
+
             .data(bike).enter()
             .append("path")
             .attr("d",  function(d) {return pathLine([[d.start_long, d.start_lat], [d.end_long, d.end_lat]]);})
-            .attr("class", "path");
+           
+            .attr("class", "path")
+             .transition()
+            .delay(3000)
+            ;
+
+
+    //It is calculating the wrong lenght and it needs to calculate each length.
+
+        var totalLength = patha.node().getTotalLength();
+        console.log(totalLength)
+            patha
+            .attr("stroke-dasharray", totalLength + " " + totalLength)
+            .attr("stroke-dashoffset", totalLength)
+            .transition()
+            .duration(10000)
+            .ease("linear")
+            .attr("stroke-dashoffset", 0);
+
 
 
      });
