@@ -13,6 +13,7 @@ echo
 echo "Processing Shapefile into GeoJSON using ogr2ogr.."
 ogr2ogr \
     -f GeoJSON \
+    -t_srs crs:84 \
     working/nyc-geo.json \
     input/nynta_15d/nynta.shp
 
