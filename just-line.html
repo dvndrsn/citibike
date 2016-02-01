@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.feature {
+    fill: #ccf9fb;
+    stroke: #004447;
+    stroke-width: 1px;
+    stroke-linejoin: round;
+
+  }
+
+.mesh {
+    fill: none;
+      stroke: #004447;
+      stroke-width: 1px;
+      stroke-linejoin: round;
+  }
+
+ svg .path {
+     /* fill: none; */
+     /* stroke-opacity: .8; */
+     /* stroke-dasharray: 3,2; */
+     stroke-width: 2px;
+     stroke: red;
+ }
+
+</style>
+<body>
+<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script></script>
+<script src="//d3js.org/topojson.v1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+
+ var width = 1000,
+     height = 500;
+
+ var    rc = [-74.0031909, 40.7206499];
+ var homea = [-73.9970746, 40.6999351];
+ var homed = [-74.0496805, 40.71692];
+
+ var route = {
+     type: "LineString",
+     coordinates: {
+         homea,
+         rc
+     }
+ }
+
+ var start = homea;
+ var end = rc;
+ /* var start = [420.3088248592685, 250.11952690483304]; */
+ /* var end = [411.7688590160833, 211.96298088270123]; */
+
+ var projection = d3.geo.mercator()
+                    .center([-73.94, 40.70])
+                    .scale(80000)
+                    .translate([width / 2, height / 2]);
+
+ var proj_home = projection(homea);
+ var proj_rc = projection(rc);
+
+ console.log(proj_home);
+ console.log(proj_rc);
+
+ var path = d3.geo.path()
+              .projection(projection);
+
+ var svg = d3.select("body").append("svg")
+             .attr("width", width)
+             .attr("height", height);
+
+d3.json("/working/encoded-topo2.json", function(error, nyc) {
+     svg.append("path")
+        .datum(topojson.feature(nyc, nyc.objects.encoded2))
+        .attr("d", path)
+        .attr("class", "feature");
+
+     svg.append("path")
+        .datum(topojson.mesh(nyc, nyc.objects.encoded2, function(a, b) { return a !== b; }))
+        .attr("class", "mesh")
+        .attr("d", path);
+
+     svg.selectAll("circle")
+        .data([rc]).enter()
+        .append("circle")
+        .attr("cx", function (d) { return projection(d)[0];})
+        .attr("cy", function (d) { return projection(d)[1]; })
+        .attr("r", "4px")
+        .attr("fill", "green");
+
+     /* TODO why does the first circle not get graphed? */
+     svg.selectAll("circle")
+        .data([homed, homea]).enter()
+        .append("circle")
+        .attr("cx", function (d) { return projection(d)[0];})
+        .attr("cy", function (d) { return projection(d)[1]; })
+        .attr("r", "4px")
+        .attr("fill", "orange");
+
+
+     d3.json("stations.json", function(error, stations) {
+         svg.selectAll("circle")
+            .data(stations).enter()
+            .append("circle")
+            .attr("cx", function(d) { p = projection([d['long'], d['lat']]); return p[0]; })
+            .attr("cy", function(d) { p = projection([d['long'], d['lat']]); return p[1]; })
+            .attr("r", "1px")
+            .attr("fill","pink");
+
+         console.log("yo.");
+         var pathLine = d3.svg.line()
+                          .x(function(d) { p = projection(d); return p[0]; })
+                          .y(function(d) { p = projection(d); return p[1]; });
+
+         console.log("what is up?");
+         var patha = svg.append("path")
+            .attr("d",  pathLine([start, end]))
+                        .attr("class", "path");
+
+         console.log("arrgghhh.");
+         console.log(patha);
+     });
+ });
+
+ /* var g = svg.append('g'); */
+ /*  */
+ /* var arcGroup = g.append('g'); */
+ /*  */
+ /* var pathArcs = arcGroup.selectAll(".arc") */
+ /* .data(route); */
+ /*  */
+ /* pathArcs.enter() */
+ /* .append("path").attr({ */
+ /* 'class': 'arc' */
+ /* }).style({ */
+ /* fill: 'none', */
+ /* }); */
+ /*  */
+ /*  */
+ /* pathArcs.attr({ */
+ /* d: path */
+ /* }) */
+ /* .style({ stroke: '#0000ff', */
+ /* 'stroke-width': '1px' */
+ /* }); */
+ /*  */
+ /* pathArcs.exit().remove(); */
+
+
+
+</script>
