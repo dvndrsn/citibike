@@ -29,16 +29,12 @@ var width = 1000,
     height = 500;
 
     rc = [-74.0031909, 40.7206499];
-    home = [-73.9970746, 40.6999351]
-
-
-
-https://www.google.com/maps/place/44+Willow+St,+Brooklyn,+NY+11201/@40.6999351,-73.9970746,17z/data=!3m1!4b1!4m2!3m1!1s0x89c25a382acc89c7:0x26258afd258adb9b
-
+ homea = [-73.9970746, 40.6999351];
+ homed = [-74.0496805, 40.71692];
 
 var projection = d3.geo.mercator()
     .center([-73.94, 40.70])
-    .scale(50000)
+    .scale(80000)
     .translate([width / 2, height / 2]);
 
 var path = d3.geo.path()
@@ -49,28 +45,45 @@ var svg = d3.select("body").append("svg")
     .attr("height", height);
 
 
-d3.json("/citibike-map/working/encoded-topo2.json", function(error, nyc) {
-  svg.append("path")
-      .datum(topojson.feature(nyc, nyc.objects.encoded2))
-      .attr("d", path)
-      .attr("class", "feature");
+d3.json("/working/encoded-topo2.json", function(error, nyc) {
+     svg.append("path")
+        .datum(topojson.feature(nyc, nyc.objects.encoded2))
+        .attr("d", path)
+        .attr("class", "feature");
 
-  svg.append("path")
-      .datum(topojson.mesh(nyc, nyc.objects.encoded2, function(a, b) { return a !== b; }))
-      .attr("class", "mesh")
-      .attr("d", path);
+     svg.append("path")
+        .datum(topojson.mesh(nyc, nyc.objects.encoded2, function(a, b) { return a !== b; }))
+        .attr("class", "mesh")
+        .attr("d", path);
 
-  svg.selectAll("circle")
-    .data([rc, home]).enter()
-    .append("circle")
-    .attr("cx", function (d) { return projection(d)[0];})
-    .attr("cy", function (d) { return projection(d)[1]; })
-    .attr("r", "4px")
-    .attr("fill", "orange")
+     svg.selectAll("circle")
+        .data([rc]).enter()
+        .append("circle")
+        .attr("cx", function (d) { return projection(d)[0];})
+        .attr("cy", function (d) { return projection(d)[1]; })
+        .attr("r", "4px")
+        .attr("fill", "green");
 
-  console.log(projection(rc))
+     /* svg.selectAll("circle") */
+     /* .data([homea, homed]).enter() */
+     /* .append("circle") */
+     /* .attr("cx", function (d) { return projection(d)[0];}) */
+     /* .attr("cy", function (d) { return projection(d)[1]; }) */
+     /* .attr("r", "4px") */
+     /* .attr("fill", "orange"); */
 
-});
+
+     d3.json("stations.json", function(error, stations) {
+         svg.selectAll("circle")
+            .data(stations).enter()
+            .append("circle")
+            .attr("cx", function(d) { p = projection([d['long'], d['lat']]); console.log(p); return p[0]; })
+            .attr("cy", function(d) { p = projection([d['long'], d['lat']]); return p[1]; })
+            .attr("r", "1px")
+            .attr("fill","pink");
+     });
+ });
+
 
 
 
