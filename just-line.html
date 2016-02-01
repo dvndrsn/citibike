@@ -22,15 +22,15 @@
      /* fill: none; */
      /* stroke-opacity: .8; */
      /* stroke-dasharray: 3,2; */
-     stroke-width: 2px;
-     stroke: red;
+     stroke-width: 1px;
+     stroke: magenta;
  }
 
 </style>
 <body>
 <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script></script>
 <script src="//d3js.org/topojson.v1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
 <script>
 
  var width = 1000,
@@ -109,18 +109,33 @@ d3.json("/working/encoded-topo2.json", function(error, nyc) {
             .attr("r", "1px")
             .attr("fill","pink");
 
-         console.log("yo.");
-         var pathLine = d3.svg.line()
-                          .x(function(d) { p = projection(d); return p[0]; })
-                          .y(function(d) { p = projection(d); return p[1]; });
+         // console.log("yo.");
+         // var pathLine = d3.svg.line()
+         //                  .x(function(d) { p = projection(d); return p[0]; })
+         //                  .y(function(d) { p = projection(d); return p[1]; });
 
-         console.log("what is up?");
-         var patha = svg.append("path")
-            .attr("d",  pathLine([start, end]))
-                        .attr("class", "path");
+         // console.log("what is up?");
+         // var patha = svg.append("path")
+         //    .attr("d",  pathLine([start, end]))
+         //                .attr("class", "path");
 
-         console.log("arrgghhh.");
-         console.log(patha);
+         // console.log("arrgghhh.");
+         // console.log(patha);
+     });
+
+     d3.json("bike.json", function(error, bike) {
+        var pathLine = d3.svg.line()
+            .x(function(d) { p = projection(d); console.log(d); return p[0]; })
+            .y(function(d) { p = projection(d); return p[1]; });
+
+         
+         var patha = svg.selectAll("line")
+            .data(bike).enter()
+            .append("path")
+            .attr("d",  function(d) {return pathLine([[d.start_long, d.start_lat], [d.end_long, d.end_lat]]);})
+            .attr("class", "path");
+
+
      });
  });
 
