@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+/* CSS goes here. */
+
+</style>
+<body>
+<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script></script>
+<script src="//d3js.org/topojson.v1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+
+var width = 1000,
+    height = 500;
+
+var projection = d3.geo.mercator()
+    .center([-73.94, 40.70])
+    .scale(60000)
+    .translate([width / 2, height / 2]);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+// var json = $.getJSON("/citibike-map/working/encoded-topo2.json");
+// console.log(json);
+
+// for a in json.
+
+d3.json("/citibike-map/working/encoded-topo2.json", function(error, nyc) {
+  svg.append("path")
+      .datum(topojson.feature(nyc, nyc.objects['encoded2']))
+      .attr("d", path);
+
+});
+
+
+
+</script>
