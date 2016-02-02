@@ -88,6 +88,10 @@ d3.json("/working/encoded-topo2.json", function(error, nyc) {
      });
 
      d3.json("bike.json", function(error, bike) {
+
+
+
+
         var pathLine = d3.svg.line()
             .x(function(d) { p = projection(d); console.log(d); return p[0]; })
             .y(function(d) { p = projection(d); return p[1]; });
@@ -133,9 +137,37 @@ d3.json("/working/encoded-topo2.json", function(error, nyc) {
              .duration(magic)
              .style("opacity", .5)
              .style("stroke", "grey");
+
+        var stationText = d3.select("body")
+            .append("svg")
+            .style("background", "#ccf9fb")
+            .attr({ width: 600, height: 50})
+           .selectAll("text")
+            .data(bike)
+            .enter() 
+            .append("text")
+            .attr({
+                x: 0,
+                y: 0,
+                dx: 100,
+                dy: 25,
+                "font-size": 18
+            })
+            .style("opacity", 1)
+            .style("fill","#004447" )
+            .transition()
+            .duration(magic)
+            .delay(function(d, i) { return i  * magic;  })
+            .text(function(d) {return d.start_name + " - "+ d.end_name})
+            .transition()
+            .duration(0)
+            //.style("text-anchor", "middle")
+            .style("opacity", 0)
+            
+        
+            //.remove("p")
      });
  });
-
 
 
 
