@@ -116,7 +116,8 @@ d3.json("/working/encoded-topo2.json", function(error, nyc) {
             .attr("stroke-dashoffset", function(d) { return d.totalLength; })
             //.style("opacity", 1)
             .transition()
-            .duration(5000)
+
+            .duration(function(d){return d.totalLength * 50})
             //.style("opacity", 0)
             .ease("linear")
             .attr("stroke-dashoffset", 0);
