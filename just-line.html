@@ -92,40 +92,47 @@ d3.json("/working/encoded-topo2.json", function(error, nyc) {
             .x(function(d) { p = projection(d); console.log(d); return p[0]; })
             .y(function(d) { p = projection(d); return p[1]; });
 
-         
+         /* bike.forEach(function(d, i) { */
+         /* setTimeout(function(){ */
+         /* var patha = svg.selectAll("line") */
+         /* .append("path") */
+         /* .attr("d",  function(d) {return pathLine([[d.start_long, d.start_lat], [d.end_long, d.end_lat]]);}) */
+         /* .attr("class", "path") */
+         /* .transition() */
+         /* .duration(2000); */
+         /* }) */
+         /* }) */
+
+
          var patha = svg.selectAll("line")
-
-            .data(bike).enter()
-            .append("path")
-            .attr("d",  function(d) {return pathLine([[d.start_long, d.start_lat], [d.end_long, d.end_lat]]);})
-           
-            .attr("class", "path")
-            .transition()
-            .duration(2000)
-
-            ;
-
+                        .data(bike).enter()
+                        .append("path")
+                        .attr("d",  function(d) {return pathLine([[d.start_long, d.start_lat], [d.end_long, d.end_lat]]);})
+                        .attr("class", "path")
+                        .style("opacity",0);
 
     //It is calculating the wrong lenght and it needs to calculate each length.
 
-        // var totalLength = patha.node().getTotalLength();
-            
-            patha
-            .each(function(d) { d.totalLength = this.getTotalLength(); })
-            .attr("stroke-dasharray", function(d) { console.log(d.totalLength); return d.totalLength + " " + d.totalLength})
-            .attr("stroke-dashoffset", function(d) { return d.totalLength; })
-            //.style("opacity", 1)
-            .transition()
-
-            .duration(function(d){return d.totalLength * 50})
-            //.style("opacity", 0)
-            .ease("linear")
-            .attr("stroke-dashoffset", 0);
-
-            
-
-
-
+         /* var laz = new Audio("Laser Blasts-SoundBible.com-108608437.mp3"); */
+         var magic = 200;
+         var totalLength = patha.node().getTotalLength();
+         patha
+             .each(function(d) { d.totalLength = this.getTotalLength(); })
+             .attr("stroke-dasharray", function(d) { console.log(d.totalLength); return d.totalLength + " " + d.totalLength})
+             .attr("stroke-dashoffset", function(d) { return d.totalLength; })
+             /* .style("opacity", 1) */
+             .transition()
+             /* .duration(function(d){ d.duration = d.totalLength * 50; return d.duration; }) */
+             .duration(magic)
+             .delay(function(d, i) { return i  * magic;  })
+             /* .style("opacity", function(d) { laz.play(); return 1; }) */
+             .style("opacity", 1)
+             .ease("linear")
+             .attr("stroke-dashoffset", 0)
+             .transition()
+             .duration(magic)
+             .style("opacity", .5)
+             .style("stroke", "grey");
      });
  });
 
