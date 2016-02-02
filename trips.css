@@ -1,0 +1,42 @@
+/* Page CSS */
+header {
+
+}
+
+.tripdata {
+    display: flex;
+    flex-direction: row;
+}
+
+.stats {
+    flex: 1;
+}
+
+.map {
+    flex: 1;
+}
+
+/* Map/SVG CSS */
+.feature {
+    fill: #ccf9fb;
+    stroke: #004447;
+    stroke-width: 1px;
+    stroke-linejoin: round;
+}
+
+.mesh {
+    fill: none;
+    stroke: #004447;
+    stroke-width: 1px;
+    stroke-linejoin: round;
+}
+
+svg .path {
+    stroke-width: 2px;
+    stroke: magenta;
+}
+
+img .bike {
+    height:"50";
+    width:"50";
+}
