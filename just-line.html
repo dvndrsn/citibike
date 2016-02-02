@@ -100,22 +100,28 @@ d3.json("/working/encoded-topo2.json", function(error, nyc) {
             .attr("d",  function(d) {return pathLine([[d.start_long, d.start_lat], [d.end_long, d.end_lat]]);})
            
             .attr("class", "path")
-             .transition()
-            .delay(3000)
+            .transition()
+            .duration(2000)
+
             ;
 
 
     //It is calculating the wrong lenght and it needs to calculate each length.
 
-        var totalLength = patha.node().getTotalLength();
-        console.log(totalLength)
+        // var totalLength = patha.node().getTotalLength();
+            
             patha
-            .attr("stroke-dasharray", totalLength + " " + totalLength)
-            .attr("stroke-dashoffset", totalLength)
+            .each(function(d) { d.totalLength = this.getTotalLength(); })
+            .attr("stroke-dasharray", function(d) { console.log(d.totalLength); return d.totalLength + " " + d.totalLength})
+            .attr("stroke-dashoffset", function(d) { return d.totalLength; })
+            //.style("opacity", 1)
             .transition()
-            .duration(10000)
+            .duration(5000)
+            //.style("opacity", 0)
             .ease("linear")
             .attr("stroke-dashoffset", 0);
+
+            
 
 
 
