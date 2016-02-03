@@ -96,15 +96,18 @@ d3.json("/static/json/encoded-topo2.json", function(error, nyc) {
         var stats = d3.select(".stats")
             .append("svg")
             .style("background", "#ccf9fb")
-            .attr({ width: width, height: height})
-            .selectAll("text")
+            .attr({ width: width, height: height});
+
+        stats
+            .selectAll("starttext")
             .data(bike)
+            .enter() 
             .append("text")
             .attr({
                 x: 0,
                 y: 0,
                 dx: 5,
-                dy: 5,
+                dy: 20,
                 "font-size": 18
             })
             .style("opacity", 1)
@@ -112,10 +115,34 @@ d3.json("/static/json/encoded-topo2.json", function(error, nyc) {
             .transition()
             .duration(magic)
             .delay(function(d, i) { return i  * magic;  })
-            .text(function(d) { return "Start station:" + d.start_name })
+            .text(function(d) { return "Start station: " + d.start_name })
             .transition()
             .duration(0)
             .style("opacity", 0);
+
+        stats
+            .selectAll("endtext")
+            .data(bike)
+            .enter() 
+            .append("text")
+            .attr({
+                x: 0,
+                y: 0,
+                dx: 5,
+                dy: 50,
+                "font-size": 18
+            })
+            .style("opacity", 1)
+            .style("fill","#004447" )
+            .transition()
+            .duration(magic)
+            .delay(function(d, i) { return i  * magic;  })
+            .text(function(d) { return "End station: " + d.end_name })
+            .transition()
+            .duration(0)
+            .style("opacity", 0);
+
+
 
         // Add text for each station as it is visited
         // var startstationText = stats
