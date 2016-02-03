@@ -90,7 +90,7 @@ d3.json("/static/json/encoded-topo2.json", function(error, nyc) {
             .attr("stroke-dashoffset", 0)
             .transition()
             .duration(magic)
-            .style("opacity", .5)
+            .style("opacity", .4)
             .style("stroke", "grey");
 
         var stats = d3.select(".stats")
