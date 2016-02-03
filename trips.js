@@ -19,10 +19,10 @@ var svg = d3.select(".map").append("svg")
 
 // Groups for layout of SVG Elements
 var g = svg.append("g");
-var hood = g.append("g");
-var mesh = g.append("g");
-var poi = g.append("g");
-var trips = g.append("g");
+var hood = g.append("g").attr("class", "hood");
+var mesh = g.append("g").attr("class", "mesh");
+var poi = g.append("g").attr("class", "poi");
+var trips = g.append("g").attr("class", "trips");
 
 d3.json("/working/encoded-topo2.json", function(error, nyc) {
     // Add neighborhoods, mesh boundaries and points of interest (stations, RC office, etc.)
