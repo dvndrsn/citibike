@@ -1,43 +1,72 @@
 /* Page CSS */
+
+
+body {
+    font-family: Roboto, sans-serif;
+     color: #005dab;
+}
 header {
+    display: flex;
+    flex-direction:row;
+    margin: 5px;
+    justify-content: left;
+
 
 }
 
+h1 {
+    font-size: 32px;
+    margin: 0px;
+    
+}
+
+footer {
+    font-size: 14px;
+}
+
+/*.child {
+    flex: 1;
+}*/
 .tripdata {
     display: flex;
     flex-direction: row;
 }
 
-.stats {
-    flex: 1;
+.map {
+    background-color: #a4e4f8;
 }
 
-.map {
-    flex: 1;
+.stats {
+    padding-left: 30px;
 }
+
+
 
 .bike {
-    height:50px;
-    width:50px;
+    height:40px;
+    width:40px;
+    color: #fd282f;
 }
 
 /* Map/SVG CSS */
 .feature {
-    fill: #ccf9fb;
-    stroke: #004447;
+    fill: #cccccc;
+    stroke: #005dab;
     stroke-width: 1px;
     stroke-linejoin: round;
 }
 
 .mesh {
     fill: none;
-    stroke: #004447;
+    stroke: #005dab;
     stroke-width: 1px;
     stroke-linejoin: round;
 }
 
 svg .path {
-    stroke-width: 2px;
-    stroke: magenta;
+    stroke-width: 3px;
+    stroke: #fd282f;
 }
+
+
 

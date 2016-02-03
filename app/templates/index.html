@@ -3,27 +3,31 @@
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="{{ path }}css/trips.css">
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script></script>
+        <script src="//d3js.org/topojson.v1.min.js"></script>
     </head>
     <body>
         <header>
-            <h1>Citibike Trip History</h1>
+             <h1 class="child"> Citi Bike Trip History</h1> <img class="bike child" src ="{{ path}}images/Upright_urban_bicyclist_red.svg">
         </header>
         <article class="tripdata">
-            <div class="stats">
-                <h3>For bike # 77139 in August 2015</h3>
-            </div>
-            <div class="map">
-            </div>
+        <div class="map">
+        </div>
+        <div class="stats">
+            <h3>Every trip bike #77139 took in August 2015</h3>
+        </div>
+            <img style="display:none" class="image" src="https://d29xw0ra2h4o4u.cloudfront.net/assets/logo-no-text-ab02ba4e6d854337f7d7515e08f57520a82883ace40d22b4de689435cc211ffd.png"/>
         </article>
-        <article>
-            <div class="progressbike">
-                <img class="bike" src ="{{ path}}images/Upright_urban_bicyclist.svg">
-            </div>
-        </article>
+         <script src="{{path}}js/trips.js"></script>
+
+
+
         <footer>
+        <p>A D3 exploration by <a href="http://dvndrsn.com">David Anderson</a> & <a href="http://github.com/alizauf">Aliza Aufrichtig</a>. <br>Made at <a href="http://recurse.com">Recurse Center</a>.</p>
         </footer>
-        <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script></script>
-        <script src="//d3js.org/topojson.v1.min.js"></script>
-        <script src="{{path}}js/trips.js"></script>
+       
+
     </body>
 </html>

@@ -2,8 +2,6 @@ var width = 400,
     height = 500;
 
 var rc = [-74.0031909, 40.7206499];
-var homea = [-73.9970746, 40.6999351];
-var homed = [-74.0496805, 40.71692];
 
 var projection = d3.geo.mercator()
         .center([-73.94, 40.70])
@@ -43,10 +41,27 @@ d3.json("/static/json/encoded-topo2.json", function(error, nyc) {
     poi.selectAll("circle")
         .data([rc]).enter()
         .append("circle")
+        .attr("class", "rc")
         .attr("cx", function (d) { return projection(d)[0];})
         .attr("cy", function (d) { return projection(d)[1]; })
         .attr("r", "5px")
-        .attr("fill", "green");
+        .attr("fill", "#0095D7");
+
+//JQuery to show RC
+$(".rc").click(function() {
+    window.open("http://www.recurse.com");
+});
+
+$(".rc").mouseenter(function() {
+    $(".image").show();
+    $(document).mousemove(function(event) {
+    $(".image").css({"position":"absolute","left":event.clientX + 15 ,"top":event.clientY + 15});    
+    });    
+});
+
+$(".rc").mouseleave(function() {
+    $(".image").hide();
+});
 
     // Points of Interest - Stations
     d3.json("/static/json/stations.json", function(error, stations) {
@@ -56,7 +71,7 @@ d3.json("/static/json/encoded-topo2.json", function(error, nyc) {
             .attr("cx", function(d) { p = projection([d['long'], d['lat']]); return p[0]; })
             .attr("cy", function(d) { p = projection([d['long'], d['lat']]); return p[1]; })
             .attr("r", "2px")
-            .attr("fill","pink");
+            .attr("fill","#005dab");
     });
 
     d3.json("/static/json/bike.json", function(error, bike) {
@@ -90,13 +105,13 @@ d3.json("/static/json/encoded-topo2.json", function(error, nyc) {
             .attr("stroke-dashoffset", 0)
             .transition()
             .duration(magic)
-            .style("opacity", .4)
-            .style("stroke", "grey");
+            .style("opacity", .5)
+            .style("stroke", "white");
 
         var stats = d3.select(".stats")
             .append("svg")
-            .style("background", "#ccf9fb")
-            .attr({ width: width, height: height});
+            .style("background", "#0095D7")
+            .attr({ width: width, height: height/6});
 
         stats
             .selectAll("starttext")
@@ -106,12 +121,12 @@ d3.json("/static/json/encoded-topo2.json", function(error, nyc) {
             .attr({
                 x: 0,
                 y: 0,
-                dx: 5,
-                dy: 20,
+                dx: 10,
+                dy: 30,
                 "font-size": 18
             })
             .style("opacity", 1)
-            .style("fill","#004447" )
+            .style("fill","white" )
             .transition()
             .duration(magic)
             .delay(function(d, i) { return i  * magic;  })
@@ -128,12 +143,12 @@ d3.json("/static/json/encoded-topo2.json", function(error, nyc) {
             .attr({
                 x: 0,
                 y: 0,
-                dx: 5,
-                dy: 50,
+                dx: 10,
+                dy: 60,
                 "font-size": 18
             })
             .style("opacity", 1)
-            .style("fill","#004447" )
+            .style("fill","white" )
             .transition()
             .duration(magic)
             .delay(function(d, i) { return i  * magic;  })
@@ -142,51 +157,10 @@ d3.json("/static/json/encoded-topo2.json", function(error, nyc) {
             .duration(0)
             .style("opacity", 0);
 
-
-
-        // Add text for each station as it is visited
-        // var startstationText = stats
-        //         .selectAll("text")
-        //         .data(bike)
-        //         .append("text")
-        //         .attr({
-        //             x: 0,
-        //             y: 0,
-        //             dx: 5,
-        //             dy: 5,
-        //             "font-size": 18
-        //         })
-        //         .style("opacity", 1)
-        //         .style("fill","#004447" )
-        //         .transition()
-        //         .duration(magic)
-        //         .delay(function(d, i) { return i  * magic;  })
-        //         .text(function(d) { return "Start station:" + d.start_name })
-        //         .transition()
-        //         .duration(0)
-        //         .style("opacity", 0);
-
-        // var endstationText = stats
-        //         .selectAll("text")
-        //         .data(bike)
-        //         .append("text")
-        //         .attr({
-        //             x: 0,
-        //             y: 0,
-        //             dx: 25,
-        //             dy: 50,
-        //             "font-size": 18
-        //         })
-        //         .style("opacity", 1)
-        //         .style("fill","#004447" )
-        //         .transition()
-        //         .duration(magic)
-        //         .delay(function(d, i) { return i  * magic;  })
-        //         .text(function(d) {return "End station: "+ d.end_name })
-        //         .transition()
-        //         .duration(0)
-        // //.style("text-anchor", "middle")
-        //         .style("opacity", 0);
     });
 
 });
+
+
+
+
