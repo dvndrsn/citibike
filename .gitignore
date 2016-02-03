@@ -1,3 +1,5 @@
 *.sqp
 *.pyc
 *.ini
+flask/
+non-flask/
