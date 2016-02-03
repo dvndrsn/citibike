@@ -98,48 +98,68 @@ d3.json("/working/encoded-topo2.json", function(error, nyc) {
             .style("background", "#ccf9fb")
             .attr({ width: width, height: height})
             .selectAll("text")
-            .data(bike);
+            .data(bike)
+            .append("text")
+            .attr({
+                x: 0,
+                y: 0,
+                dx: 5,
+                dy: 5,
+                "font-size": 18
+            })
+            .style("opacity", 1)
+            .style("fill","#004447" )
+            .transition()
+            .duration(magic)
+            .delay(function(d, i) { return i  * magic;  })
+            .text(function(d) { return "Start station:" + d.start_name })
+            .transition()
+            .duration(0)
+            .style("opacity", 0);
 
         // Add text for each station as it is visited
-        var startstationText = stats
-                .append("text")
-                .attr({
-                    x: 0,
-                    y: 0,
-                    dx: 25,
-                    dy: 25,
-                    "font-size": 18
-                })
-                .style("opacity", 1)
-                .style("fill","#004447" )
-                .transition()
-                .duration(magic)
-                .delay(function(d, i) { return i  * magic;  })
-                .text(function(d) { return "Start station:" + d.start_name })
-                .transition()
-                .duration(0)
-        //.style("text-anchor", "middle")
-                .style("opacity", 0);
+        // var startstationText = stats
+        //         .selectAll("text")
+        //         .data(bike)
+        //         .append("text")
+        //         .attr({
+        //             x: 0,
+        //             y: 0,
+        //             dx: 5,
+        //             dy: 5,
+        //             "font-size": 18
+        //         })
+        //         .style("opacity", 1)
+        //         .style("fill","#004447" )
+        //         .transition()
+        //         .duration(magic)
+        //         .delay(function(d, i) { return i  * magic;  })
+        //         .text(function(d) { return "Start station:" + d.start_name })
+        //         .transition()
+        //         .duration(0)
+        //         .style("opacity", 0);
 
-        var endstationText = stats
-                .append("text")
-                .attr({
-                    x: 0,
-                    y: 0,
-                    dx: 25,
-                    dy: 50,
-                    "font-size": 18
-                })
-                .style("opacity", 1)
-                .style("fill","#004447" )
-                .transition()
-                .duration(magic)
-                .delay(function(d, i) { return i  * magic;  })
-                .text(function(d) {return "End station: "+ d.end_name })
-                .transition()
-                .duration(0)
-        //.style("text-anchor", "middle")
-                .style("opacity", 0);
+        // var endstationText = stats
+        //         .selectAll("text")
+        //         .data(bike)
+        //         .append("text")
+        //         .attr({
+        //             x: 0,
+        //             y: 0,
+        //             dx: 25,
+        //             dy: 50,
+        //             "font-size": 18
+        //         })
+        //         .style("opacity", 1)
+        //         .style("fill","#004447" )
+        //         .transition()
+        //         .duration(magic)
+        //         .delay(function(d, i) { return i  * magic;  })
+        //         .text(function(d) {return "End station: "+ d.end_name })
+        //         .transition()
+        //         .duration(0)
+        // //.style("text-anchor", "middle")
+        //         .style("opacity", 0);
     });
 
 });

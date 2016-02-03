@@ -16,6 +16,11 @@ header {
     flex: 1;
 }
 
+.bike {
+    height:50px;
+    width:50px;
+}
+
 /* Map/SVG CSS */
 .feature {
     fill: #ccf9fb;
@@ -36,7 +41,3 @@ svg .path {
     stroke: magenta;
 }
 
-img .bike {
-    height:"50";
-    width:"50";
-}
