@@ -1,1 +1,1 @@
-JSON_PATH = '/static/json/'
+STATIC_PATH = '/static/'
