@@ -49,7 +49,7 @@ d3.json("./json/encoded-topo2.json", function (error, nyc) {
 
     //JQuery to show RC
     $(".rc").click(function () {
-        window.open("http://www.recurse.com");
+        window.open("https://www.recurse.com");
     });
 
     $(".rc").mouseenter(function () {

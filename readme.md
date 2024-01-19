@@ -10,7 +10,7 @@ We started with one month's system data. The data was then processed and filtere
 
 TOPOjson is leveraged to draw features of the NYC region and mark the location of the [Recurse Center][rc], where Dave Anderson and Aliza Aufrichtig created this visualization in Winter 2015/2016.
 
-[rc]: http://recurse.com
+[rc]: https://recurse.com
 
 # References
 
