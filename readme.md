@@ -2,6 +2,8 @@
 
 A simple project to work with Citi Bike data showing every trip bike #77139 took in August 2015 in NYC.
 
+<img width="860" alt="citibike" src="https://github.com/dvndrsn/citibike/assets/4897035/f453fb72-a54a-496f-a200-ff5a0c19374f">
+
 Citibike system data is available for download [here][citibike-system-data].
 
 [citibike-system-data]: https://citibikenyc.com/system-data
@@ -17,5 +19,3 @@ TOPOjson is leveraged to draw features of the NYC region and mark the location o
 This project uses:
 - https://commons.wikimedia.org/wiki/File:Upright_urban_bicyclist.svg
 - https://s3.amazonaws.com/tripdata/201508-citibike-tripdata.zip
-
-
